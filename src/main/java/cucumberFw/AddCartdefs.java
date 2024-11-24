@@ -1,5 +1,8 @@
-package day1;
+package cucumberFw;
 
+import cucumberFw.factory.DriverFactory;
+import cucumberFw.pages.CartPage;
+import cucumberFw.pages.StorePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,21 +15,24 @@ public class AddCartdefs {
 
     @Given("I'm on a store page")
     public void iMOnAStorePage() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://askomdch.com/");
+        driver = DriverFactory.getDriver();
+        new StorePage(driver).load("https://askomdch.com/");
+
     }
 
     @When("I add a {string} to the cart")
     public void iAddAToTheCart(String arg0) {
 
-        driver.findElement(By.xpath("//a[@class='wp-block-button__link' and text()='Shop Now']")).click();
-        By addShoe = By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']");
-        driver.findElement(addShoe).click();
+        StorePage sp = new StorePage(driver);
+        sp.navigateToShopNow();
+
+        sp.addBlueShoes();
     }
 
     @Then("I should see {int} {string}\" in the cart")
     public void iShouldSeeInTheCart(int arg0, String arg1) throws Throwable {
 
+        new CartPage(driver).navigateToCart();
+        driver.navigate().refresh();
      }
 }
