@@ -14,8 +14,9 @@ public class CartPage extends BasePage {
     @FindBy(xpath="//div[@class='site-primary-header-wrap ast-builder-grid-row-container site-header-focus-item ast-container']//div[@class='ast-builder-layout-element site-header-focus-item ast-header-woo-cart']")
     WebElement cartIcon;
 
-    @FindBy(xpath="//a[@aria-label='Add “Blue Shoes” to your cart']")
-    WebElement addBlueShoe;
+    @FindBy(xpath="//a[contains(text(),'Proceed to checkout')]")
+    WebElement checkoutButton;
+
 
 
     public void navigateToCart(){
@@ -23,8 +24,10 @@ public class CartPage extends BasePage {
 
     }
 
-    public void addBlueShoes(){
-        wait.until(ExpectedConditions.elementToBeClickable(addBlueShoe)).click();
+    public void proceedToCheckout(){
+        wait.until(ExpectedConditions.elementToBeClickable(checkoutButton)).click();
+
     }
+
 
 }
